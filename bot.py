@@ -157,5 +157,5 @@ def main():
     webhook_url=f"{WEBHOOK_URL}/{TOKEN}"
     )
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     main()
