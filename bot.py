@@ -3,29 +3,6 @@ import os
 import random
 from telegram import Update, ReplyKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, filters
-TOKEN = "
-BOT_USERNAME = "moneyadsafrica_bot"
-WEBHOOK_URL = "https://telegram-ads-bot-3.onrender.com"
-USERS_FILE = "users.json"
-# --- ADS LIST ---
-ADS = [
-    "https://www.effectivegatecpm.com/md7pbq4wqx?key=207c99eec38f818e7bbd619c4b9171ea",
-    "https://www.effectivegatecpm.com/dcmrmn7aug?key=6c294836c51c8619a5680e37aaad3f87"
-]
-MIN_WITHDRAW = 10
-
-# --- WALLET ADDRESSES ---
-BEP20_ADDRESS = "0x37c2315cf1cb667fdebb5f412fa8a73507018be2"
-TRX_ADDRESS = "0x37c2315cf1cb667fdebb5f412fa8a73507018be2"
-
-# --- LOAD USERS ---
-if os.path.exists(USERS_FILE):
-    with open(USERS_FILE, "r") a…
-[8:36 PM, 3/10/2026] 马云: import json
-import os
-import random
-from telegram import Update, ReplyKeyboardMarkup
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, filters
 
 TOKEN = "8606258850:AAECkTRhz1Q5QeqcLJCpRHjs39kN5Mvfb6Q" 
 BOT_USERNAME = "moneyadsafrica_bot"
@@ -180,5 +157,5 @@ def main():
     webhook_url=f"{WEBHOOK_URL}/{TOKEN}"
     )
 
-if __name__ == "__main__":
+if _name_ == "_main_":
     main()
