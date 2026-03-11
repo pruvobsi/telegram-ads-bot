@@ -20,7 +20,7 @@ BEP20_ADDRESS = "0x37c2315cf1cb667fdebb5f412fa8a73507018be2"
 TRX_ADDRESS = "0x37c2315cf1cb667fdebb5f412fa8a73507018be2"
 
 if os.path.exists(USERS_FILE):
-    with open(USERS_FILE,"r") as f:
+    with open(USERS_FILE, "r", encoding="utf-8-sig") as f:
         users = json.load(f)
 else:
     users = {}
