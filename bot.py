@@ -65,13 +65,18 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 async def view_ads(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    # Get the user ID
     user_id = str(update.effective_user.id)
+    # Ensure the user exists, if not, create them
     if user_id not in users:
         users[user_id] = {"balance": 0, "referrals": 0}
+    # Select a random ad from the list of ads
     ad = random.choice(ADS)
+    # Increment the user's balance by 1
     users[user_id]["balance"] += 1
     save_users()
-    await update.message.reply_text(ad)
+    # Send the ad to the user
+    await update.message.reply_text(f"Watch this video: {ad}")
 
 async def balance(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = str(update.effective_user.id)
@@ -92,7 +97,7 @@ async def withdraw(update: Update, context: ContextTypes.DEFAULT_TYPE):
         save_users()
         await update.message.reply_text("Withdraw request received")
     else:
-        await update.message.reply_text(str(MIN_WITHDRAW))
+        await update.message.reply_text(f"Minimum withdraw: {MIN_WITHDRAW} credits")
 
 async def payment(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(f"{BEP20_ADDRESS}\n{TRX_ADDRESS}")
@@ -103,25 +108,42 @@ async def play_game(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if outcome == "win":
         users[user_id]["balance"] += 2
         save_users()
-        await update.message.reply_text("Win 2 credits")
+        await update.message.reply_text("you Win 2 credits")
     else:
-        await update.message.reply_text("Lose")
+        await update.message.reply_text("you Lose")
+
+# ---------------------------
+# Menu Mapping (Modular & Expandable)
+# ---------------------------
+# This dictionary maps the button text to its corresponding function.
+# This makes it easy to add new features without changing the main handler logic.
+MENU_HANDLERS = {
+    "View Ads": view_ads,
+    "Balance": balance,
+    "My Referrals": referrals,
+    "Withdraw": withdraw,
+    "Payment Info": payment,
+    "Play Game": play_game,
+}
 
 async def menu_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """
+    Handles all menu interactions. It checks the MENU_HANDLERS map first,
+    then falls back to a development message or an error message.
+    """
     text = update.message.text
-    if text == "View Ads":
-        await view_ads(update, context)
-    elif text == "Balance":
-        await balance(update, context)
-    elif text == "My Referrals":
-        await referrals(update, context)
-    elif text == "Withdraw":
-        await withdraw(update, context)
-    elif text == "Payment Info":
-        await payment(update, context)
-    elif text == "Play Game":
-        await play_game(update, context)
 
+    # 1. Execute the handler if it exists in our modular mapping
+    if text in MENU_HANDLERS:
+        await MENU_HANDLERS[text](update, context)
+    
+    # 2. Innovation-ready: Check if the button is in the UI 'menu' list but not yet implemented
+    elif any(text in row for row in menu):
+        await update.message.reply_text(f"🚀 The '{text}' feature is under development. Stay tuned!")
+    
+    # 3. Fallback for any other text input that doesn't match a menu item
+    else:
+        await update.message.reply_text("⚠️ Select a valid option from the menu keyboard.")
 # ---------------------------
 # Main
 # ---------------------------
