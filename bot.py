@@ -18,6 +18,7 @@ ADS = [
 ]
 
 MIN_WITHDRAW = 10
+MAX_WITHDRAW = 1000  # Added maximum withdrawal limit for security
 BEP20_ADDRESS = "0x37c2315cf1cb667fdebb5f412fa8a73507018be2"
 TRX_ADDRESS = "0x37c2315cf1cb667fdebb5f412fa8a73507018be2"
 
@@ -40,10 +41,19 @@ def save_users():
 # ---------------------------
 # Menu
 # ---------------------------
+# Main navigation menu
 menu = [
-    ["View Ads", "My Referrals"],
+    ["View Ads", "Play Game"],
     ["Balance", "Withdraw"],
-    ["Payment Info", "Play Game"]
+    ["My Referrals", "Leaderboard"],
+    ["Payment Info"]
+]
+
+# Games sub-menu
+games_menu = [
+    ["Guess Number", "Dice Game"],
+    ["Spin Wheel"],
+    ["Back to Main"]
 ]
 
 # ---------------------------
